@@ -42,8 +42,8 @@ def parse_args():
     parser.add_argument(
         "--timeout",
         type=int,
-        default=120,
-        help="Request timeout in seconds (default: 120)",
+        default=600,
+        help="Request timeout in seconds (default: 600, needed for local CPU inference)",
     )
     return parser.parse_args()
 

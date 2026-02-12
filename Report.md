@@ -186,13 +186,15 @@ The system supports 6 LLM providers. Each note requires ~4 LLM calls.
 
 | Provider | Type | Speed per Note | Cost | Privacy |
 |----------|------|---------------|------|---------|
-| Mistral 7B (Docker Ollama) | Local CPU | ~8-15s | Free | Full |
-| Llama 3 8B (Docker Ollama) | Local CPU | ~10-18s | Free | Full |
-| Gemini 2.0 Flash | Cloud API | ~1-2s | Free tier | Data sent externally |
-| Claude Sonnet | Cloud API | ~1-3s | Paid | Data sent externally |
-| GPT-4 Turbo | Cloud API | ~1-3s | Paid | Data sent externally |
+| Mistral 7B (Docker Ollama) | Local CPU | ~2-7 min | Free | Full |
+| Llama 3 8B (Docker Ollama) | Local CPU | ~3-8 min | Free | Full |
+| Gemini 2.0 Flash | Cloud API | ~15-30s | Free tier | Data sent externally |
+| Claude Sonnet | Cloud API | ~15-30s | Paid | Data sent externally |
+| GPT-4 Turbo | Cloud API | ~15-30s | Paid | Data sent externally |
 
-Local models run on CPU inference inside Docker, which is significantly slower than cloud-hosted GPU inference. The trade-off is privacy vs. speed.
+Each note requires ~4 sequential LLM calls, so total time per note is cumulative. Local models run on CPU inference inside Docker, which is significantly slower than cloud-hosted GPU inference. Cloud APIs run on optimized GPU clusters. The trade-off is privacy vs. speed.
+
+**GPU Acceleration & Data Privacy:** With a local GPU (e.g., NVIDIA with CUDA support), local inference times would drop dramatically -- potentially matching cloud API speeds while keeping all patient data on-premises. This is the ideal setup for the medical industry, where data privacy and regulatory compliance (HIPAA, GDPR) are critical. Running models locally ensures no sensitive clinical data leaves the organization's infrastructure, eliminating third-party data exposure risks entirely.
 
 ### 8.2 Note on Meditron
 

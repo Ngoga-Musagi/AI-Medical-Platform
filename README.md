@@ -164,14 +164,16 @@ The system supports multiple LLM providers. Each clinical note requires **~4 LLM
 
 | Provider | Type | Inference Speed | Cost | API Key Required | Privacy |
 |----------|------|----------------|------|-----------------|---------|
-| **Mistral 7B** (Docker Ollama) | Local (CPU) | Slower (~8-15s/note) | Free | No | Full -- data stays in Docker |
-| **Llama 3 8B** (Docker Ollama) | Local (CPU) | Slower (~10-18s/note) | Free | No | Full -- data stays in Docker |
-| **Meditron 7B** (Docker Ollama) | Local (CPU) | Slower (~10-20s/note) | Free | No | Full -- data stays in Docker |
-| **Gemini 2.0 Flash** | Cloud API | Fast (~1-2s/note) | Free tier | Yes (free) | Data sent to Google |
-| **Claude Sonnet** | Cloud API | Fast (~1-3s/note) | **Paid** | Yes (paid) | Data sent to Anthropic |
-| **GPT-4 Turbo** | Cloud API | Fast (~1-3s/note) | **Paid** | Yes (paid) | Data sent to OpenAI |
+| **Mistral 7B** (Docker Ollama) | Local (CPU) | ~2-7 min/note | Free | No | Full -- data stays in Docker |
+| **Llama 3 8B** (Docker Ollama) | Local (CPU) | ~3-8 min/note | Free | No | Full -- data stays in Docker |
+| **Meditron 7B** (Docker Ollama) | Local (CPU) | ~3-10 min/note | Free | No | Full -- data stays in Docker |
+| **Gemini 2.0 Flash** | Cloud API | ~15-30s/note | Free tier | Yes (free) | Data sent to Google |
+| **Claude Sonnet** | Cloud API | ~15-30s/note | **Paid** | Yes (paid) | Data sent to Anthropic |
+| **GPT-4 Turbo** | Cloud API | ~15-30s/note | **Paid** | Yes (paid) | Data sent to OpenAI |
 
-> **Note on inference speed:** Local models (Ollama) run on **CPU inference inside Docker**, which is significantly slower than cloud-hosted GPU inference. Cloud APIs (Gemini, Claude, OpenAI) run on optimized GPU clusters, resulting in much faster response times. The trade-off is **privacy vs. speed**: local models keep all data on your infrastructure, while cloud APIs send data externally.
+> **Note on inference speed:** Each note requires **~4 sequential LLM calls** (extraction + matching + compliance + explanation), so total time per note is cumulative. Local models (Ollama) run on **CPU inference inside Docker**, which is significantly slower than cloud-hosted GPU inference. Cloud APIs (Gemini, Claude, OpenAI) run on optimized GPU clusters, resulting in much faster response times. The trade-off is **privacy vs. speed**: local models keep all data on your infrastructure, while cloud APIs send data externally.
+
+> **GPU Acceleration & Data Privacy:** With a local GPU (e.g., NVIDIA with CUDA support), local inference times would drop dramatically -- potentially matching cloud API speeds while keeping all patient data on-premises. This is the ideal setup for the **medical industry**, where data privacy and regulatory compliance (HIPAA, GDPR) are critical. Running models locally ensures no sensitive clinical data leaves the organization's infrastructure, eliminating third-party data exposure risks entirely.
 
 ### API Key Requirements
 

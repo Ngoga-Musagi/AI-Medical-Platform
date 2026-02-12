@@ -18,7 +18,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field, field_validator
 
 sys.path.append(str(Path(__file__).parent.parent))
-from config import config, LLMProvider
+from config import config, Config, LLMProvider
 from explainability.explainer import TreatmentAgent
 from chatbot.agent import MedicalAdvisorAgent
 from mlops.tracker import PredictionLogger, PerformanceTracker, ModelRegistry
@@ -285,8 +285,9 @@ async def set_provider(request: ProviderRequest):
 
     old_provider = config.LLM_PROVIDER
     try:
-        # Update environment and config
+        # Update environment and config (both class and instance attributes)
         os.environ["LLM_PROVIDER"] = request.provider
+        Config.LLM_PROVIDER = request.provider
         config.LLM_PROVIDER = request.provider
 
         # Reset LLM client singleton so it reinitializes
@@ -305,6 +306,7 @@ async def set_provider(request: ProviderRequest):
         logger.error(f"Provider switch failed: {e}", exc_info=True)
         # Try to restore previous provider
         os.environ["LLM_PROVIDER"] = old_provider
+        Config.LLM_PROVIDER = old_provider
         config.LLM_PROVIDER = old_provider
         import llm_client as lc
         lc._client_instance = None
