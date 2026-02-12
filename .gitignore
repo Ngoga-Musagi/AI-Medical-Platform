@@ -20,7 +20,7 @@ Thumbs.db
 *.swp
 
 # Outputs (generated at runtime)
-outputs/batch_results.json
+# outputs/batch_results.json
 outputs/predictions/
 outputs/system.log
 
