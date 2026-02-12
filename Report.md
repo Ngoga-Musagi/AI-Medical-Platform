@@ -235,12 +235,18 @@ bash run.sh gemini           # Or use Gemini (cloud, free tier)
 # API Docs:   http://localhost:8000/docs
 # Neo4j:      http://localhost:7474
 
-# 5. Batch analyze all 50 notes
+# 5. View the Dashboard
+# The repository ships with pre-computed batch_results.json (50 notes analyzed).
+# The dashboard shows full analytics immediately on first startup.
+
+# 6. Run Batch Analysis (Optional - re-analyze with your chosen provider)
 bash run.sh batch
 
-# 6. Stop
+# 7. Stop
 bash run.sh stop
 ```
+
+> **Batch Processing Time:** With Ollama on CPU, each note takes ~2-7 minutes (4 sequential LLM calls), so a full batch of 50 notes can take **5-6 hours**. For faster batch processing, use a cloud API provider: `bash run.sh gemini` (free tier, ~20 min total) or `bash run.sh claude` / `bash run.sh openai` (paid, ~20 min total).
 
 See `.env.example` for all configuration options.
 

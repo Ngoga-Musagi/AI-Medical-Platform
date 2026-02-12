@@ -307,13 +307,24 @@ bash run.sh openai            # GPT-4 (cloud, paid API key required)
 | API | http://localhost:8000 |
 | Neo4j Browser | http://localhost:7474 |
 
-### 4. Run Batch Analysis
+### 4. View the Dashboard
+
+The repository includes a pre-computed `outputs/batch_results.json` with all 50 clinical notes already analyzed. The dashboard will display full analytics immediately on first startup -- no batch run needed.
+
+### 5. Run Batch Analysis (Optional)
 
 ```bash
 bash run.sh batch
 ```
 
-### 5. Stop
+> **Important:** With Ollama on CPU, each note takes ~2-7 minutes (4 sequential LLM calls), so a full batch of 50 notes can take **5-6 hours**. For faster batch processing, switch to a cloud API provider:
+> ```bash
+> bash run.sh gemini     # Free tier (~15-30s per note, ~20 min total)
+> bash run.sh claude     # Paid (~15-30s per note, ~20 min total)
+> bash run.sh openai     # Paid (~15-30s per note, ~20 min total)
+> ```
+
+### 6. Stop
 
 ```bash
 bash run.sh stop
