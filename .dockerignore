@@ -1,0 +1,11 @@
+.git
+.env
+.env.example
+__pycache__
+*.pyc
+*.pyo
+models/
+NUL
+DOCKER_FIX_GUIDE.md
+*.docx
+.dockerignore

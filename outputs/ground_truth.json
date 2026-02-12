@@ -1,0 +1,17 @@
+{
+  "N001": {"age": 45, "sex": "male", "symptoms": ["fever", "productive cough"], "diagnosis": "pneumonia", "medications": ["amoxicillin"]},
+  "N002": {"age": 30, "sex": "female", "symptoms": ["headache", "neck stiffness", "fever"], "diagnosis": "meningitis", "medications": ["ceftriaxone"]},
+  "N003": {"age": 60, "sex": "male", "symptoms": ["chest pain radiating to left arm"], "diagnosis": "myocardial infarction", "medications": ["aspirin", "atorvastatin"]},
+  "N004": {"age": 25, "sex": "female", "symptoms": ["dysuria", "lower abdominal pain"], "diagnosis": "urinary tract infection", "medications": ["ciprofloxacin"]},
+  "N005": {"age": 50, "sex": "male", "symptoms": ["cough", "weight loss", "night sweats"], "diagnosis": "tuberculosis", "medications": ["rifampicin", "isoniazid"]},
+  "N006": {"age": 70, "sex": "female", "symptoms": ["shortness of breath", "wheezing"], "diagnosis": "asthma exacerbation", "medications": ["salbutamol"]},
+  "N007": {"age": 5, "sex": "male", "symptoms": ["fever", "vomiting", "diarrhea"], "diagnosis": "gastroenteritis", "medications": ["ors"]},
+  "N008": {"age": 35, "sex": "female", "symptoms": ["sore throat", "fever"], "diagnosis": "tonsillitis", "medications": ["azithromycin"]},
+  "N009": {"age": 55, "sex": "male", "symptoms": ["polyuria", "polydipsia"], "diagnosis": "diabetes mellitus", "medications": ["metformin"]},
+  "N010": {"age": 40, "sex": "female", "symptoms": ["severe headache", "blurred vision"], "diagnosis": "migraine", "medications": ["paracetamol"]},
+  "N011": {"age": 28, "sex": "male", "symptoms": ["fever", "cough"], "diagnosis": "pneumonia", "medications": ["azithromycin"]},
+  "N012": {"age": 62, "sex": "female", "symptoms": ["chest tightness", "shortness of breath"], "diagnosis": "myocardial infarction", "medications": ["aspirin"]},
+  "N013": {"age": 22, "sex": "female", "symptoms": ["burning urination"], "diagnosis": "urinary tract infection", "medications": ["nitrofurantoin"]},
+  "N014": {"age": 48, "sex": "male", "symptoms": ["night sweats", "chronic cough"], "diagnosis": "tuberculosis", "medications": ["rifampicin", "isoniazid"]},
+  "N015": {"age": 10, "sex": "male", "symptoms": ["vomiting", "diarrhea"], "diagnosis": "gastroenteritis", "medications": ["ors"]}
+}

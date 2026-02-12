@@ -1,0 +1,115 @@
+{
+  "pneumonia": {
+    "recommended_drugs": ["amoxicillin", "azithromycin"],
+    "avoid_drugs": ["ciprofloxacin"],
+    "required_tests": ["chest_xray"]
+  },
+
+  "meningitis": {
+    "recommended_drugs": ["ceftriaxone"],
+    "avoid_drugs": [],
+    "required_tests": ["lumbar_puncture"]
+  },
+
+  "myocardial infarction": {
+    "recommended_drugs": ["aspirin", "atorvastatin"],
+    "avoid_drugs": [],
+    "required_tests": ["ecg"]
+  },
+
+  "urinary tract infection": {
+    "recommended_drugs": ["nitrofurantoin"],
+    "avoid_drugs": ["ciprofloxacin"],
+    "required_tests": ["urinalysis"]
+  },
+
+  "tuberculosis": {
+    "recommended_drugs": ["rifampicin", "isoniazid"],
+    "avoid_drugs": [],
+    "required_tests": ["sputum_microscopy"]
+  },
+
+  "asthma exacerbation": {
+    "recommended_drugs": ["salbutamol"],
+    "avoid_drugs": [],
+    "required_tests": ["peak_flow"]
+  },
+
+  "gastroenteritis": {
+    "recommended_drugs": ["ors"],
+    "avoid_drugs": [],
+    "required_tests": []
+  },
+
+  "tonsillitis": {
+    "recommended_drugs": ["azithromycin"],
+    "avoid_drugs": [],
+    "required_tests": []
+  },
+
+  "diabetes mellitus": {
+    "recommended_drugs": ["metformin"],
+    "avoid_drugs": [],
+    "required_tests": ["fasting_glucose"]
+  },
+
+  "migraine": {
+    "recommended_drugs": ["paracetamol"],
+    "avoid_drugs": [],
+    "required_tests": []
+  },
+
+  "hypertension": {
+    "recommended_drugs": ["amlodipine"],
+    "avoid_drugs": [],
+    "required_tests": ["blood_pressure"]
+  },
+
+  "malaria": {
+    "recommended_drugs": ["artemether-lumefantrine"],
+    "avoid_drugs": [],
+    "required_tests": ["malaria_rapid_test"]
+  },
+
+  "anemia": {
+    "recommended_drugs": ["iron_supplement"],
+    "avoid_drugs": [],
+    "required_tests": ["hemoglobin"]
+  },
+
+  "heart failure": {
+    "recommended_drugs": ["furosemide"],
+    "avoid_drugs": [],
+    "required_tests": ["echocardiogram"]
+  },
+
+  "copd": {
+    "recommended_drugs": ["salbutamol", "ipratropium"],
+    "avoid_drugs": [],
+    "required_tests": ["spirometry"]
+  },
+
+  "stroke": {
+    "recommended_drugs": ["aspirin"],
+    "avoid_drugs": [],
+    "required_tests": ["ct_brain"]
+  },
+
+  "epilepsy": {
+    "recommended_drugs": ["carbamazepine"],
+    "avoid_drugs": [],
+    "required_tests": ["eeg"]
+  },
+
+  "otitis media": {
+    "recommended_drugs": ["amoxicillin"],
+    "avoid_drugs": [],
+    "required_tests": ["otoscopy"]
+  },
+
+  "sinusitis": {
+    "recommended_drugs": ["amoxicillin"],
+    "avoid_drugs": [],
+    "required_tests": []
+  }
+}

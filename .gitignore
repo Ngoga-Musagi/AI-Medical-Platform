@@ -1,0 +1,38 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+
+# Environment
+.env
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Outputs (generated at runtime)
+outputs/batch_results.json
+outputs/predictions/
+outputs/system.log
+
+# Docker
+.docker/
+
+# Models (downloaded at runtime)
+models/entity_extractor/model.bin
+
+# Assessment (not part of submission)
+TA AI Engineer Technical Assessment.docx
+
+# Misc
+*.tmp
+*.log

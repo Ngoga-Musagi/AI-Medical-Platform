@@ -1,0 +1,155 @@
+services:
+  # ==========================================
+  # Ollama LLM Service (runs Mistral in Docker)
+  # ==========================================
+  ollama:
+    image: ollama/ollama:latest
+    container_name: medical-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    networks:
+      - medical-network
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 15s
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 8G
+
+  # ==========================================
+  # Ollama Model Puller (one-shot init container)
+  # ==========================================
+  ollama-pull:
+    image: curlimages/curl:latest
+    container_name: medical-ollama-pull
+    depends_on:
+      ollama:
+        condition: service_healthy
+    networks:
+      - medical-network
+    entrypoint: >
+      sh -c "
+        echo 'Waiting for Ollama to be fully ready...' &&
+        sleep 5 &&
+        echo 'Pulling mistral model (this may take a few minutes on first run)...' &&
+        curl -f --no-buffer http://ollama:11434/api/pull -d '{\"name\": \"mistral\"}' &&
+        echo '' &&
+        echo 'Model pull complete!'
+      "
+    restart: "no"
+
+  # ==========================================
+  # Neo4j Knowledge Graph
+  # ==========================================
+  neo4j:
+    image: neo4j:5.15.0
+    container_name: medical-neo4j
+    environment:
+      - NEO4J_AUTH=neo4j/password
+    ports:
+      - "7474:7474"  # Browser UI
+      - "7687:7687"  # Bolt protocol
+    volumes:
+      - neo4j_data:/data
+    networks:
+      - medical-network
+    healthcheck:
+      test: ["CMD", "cypher-shell", "-u", "neo4j", "-p", "password", "RETURN 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ==========================================
+  # API Service + Medical Chatbot
+  # ==========================================
+  api:
+    build: .
+    container_name: medical-api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./outputs:/app/outputs
+      - ./models:/app/models
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    environment:
+      - LLM_PROVIDER=${LLM_PROVIDER:-ollama-mistral}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+      - HUGGINGFACE_TOKEN=${HUGGINGFACE_TOKEN}
+      - NEO4J_URI=bolt://neo4j:7687
+      - NEO4J_USER=neo4j
+      - NEO4J_PASSWORD=password
+      - USE_QUANTIZATION=${USE_QUANTIZATION:-true}
+      - CLAUDE_MODEL=${CLAUDE_MODEL:-claude-sonnet-4-20250514}
+      - OPENAI_MODEL=${OPENAI_MODEL:-gpt-4-turbo-preview}
+      - GEMINI_MODEL=${GEMINI_MODEL:-gemini-2.0-flash}
+      - GUIDELINES_PATH=outputs/guidelines.json
+      - CLINICAL_NOTES_PATH=outputs/clinical_notes.json
+      - PREDICTION_LOG_DIR=outputs/predictions
+      - OLLAMA_HOST=http://ollama:11434
+    depends_on:
+      neo4j:
+        condition: service_healthy
+      ollama:
+        condition: service_healthy
+      ollama-pull:
+        condition: service_completed_successfully
+    networks:
+      - medical-network
+
+  # ==========================================
+  # Analytics Dashboard + Chat Interface
+  # ==========================================
+  dashboard:
+    build: .
+    container_name: medical-dashboard
+    ports:
+      - "8050:8050"
+    volumes:
+      - ./outputs:/app/outputs
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8050"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    environment:
+      - LLM_PROVIDER=${LLM_PROVIDER:-ollama-mistral}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+      - NEO4J_URI=bolt://neo4j:7687
+      - NEO4J_USER=neo4j
+      - NEO4J_PASSWORD=password
+      - API_BASE_URL=http://api:8000
+      - GUIDELINES_PATH=outputs/guidelines.json
+      - CLINICAL_NOTES_PATH=outputs/clinical_notes.json
+      - OLLAMA_HOST=http://ollama:11434
+    depends_on:
+      - api
+    networks:
+      - medical-network
+    command: ["python", "-m", "src.dashboard.app"]
+
+volumes:
+  neo4j_data:
+  ollama_data:
+
+networks:
+  medical-network:
+    driver: bridge

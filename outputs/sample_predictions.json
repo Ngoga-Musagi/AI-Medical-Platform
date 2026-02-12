@@ -1,0 +1,68 @@
+[
+  {
+    "note_id": "N001",
+    "text": "45 year old male with fever and productive cough for five days. Diagnosed with pneumonia. Started on amoxicillin.",
+    "entities": {
+      "age": 45,
+      "sex": "male",
+      "symptoms": ["fever", "productive cough"],
+      "diagnosis": "pneumonia",
+      "medications": ["amoxicillin"]
+    },
+    "guidelines": {
+      "disease": "pneumonia",
+      "recommended_drugs": ["amoxicillin", "azithromycin"],
+      "contraindicated_drugs": ["ciprofloxacin"],
+      "required_tests": ["chest_xray"]
+    },
+    "compliance_score": 0.8,
+    "recommendations": ["Required tests: chest_xray"],
+    "alerts": [],
+    "llm_provider": "claude",
+    "status": "Appropriate treatment - guideline compliant"
+  },
+  {
+    "note_id": "N004",
+    "text": "25 year old female with dysuria and lower abdominal pain. Diagnosed urinary tract infection. Prescribed ciprofloxacin.",
+    "entities": {
+      "age": 25,
+      "sex": "female",
+      "symptoms": ["dysuria", "lower abdominal pain"],
+      "diagnosis": "urinary tract infection",
+      "medications": ["ciprofloxacin"]
+    },
+    "guidelines": {
+      "disease": "urinary tract infection",
+      "recommended_drugs": ["nitrofurantoin"],
+      "contraindicated_drugs": ["ciprofloxacin"],
+      "required_tests": ["urinalysis"]
+    },
+    "compliance_score": 0.2,
+    "recommendations": ["Required tests: urinalysis"],
+    "alerts": ["⚠️ ciprofloxacin is contraindicated for urinary tract infection"],
+    "llm_provider": "claude",
+    "status": "CRITICAL - Contraindicated medication prescribed"
+  },
+  {
+    "note_id": "N014",
+    "text": "48 year old male with night sweats and chronic cough. Diagnosed tuberculosis. Started rifampicin, isoniazid.",
+    "entities": {
+      "age": 48,
+      "sex": "male",
+      "symptoms": ["night sweats", "chronic cough"],
+      "diagnosis": "tuberculosis",
+      "medications": ["rifampicin", "isoniazid"]
+    },
+    "guidelines": {
+      "disease": "tuberculosis",
+      "recommended_drugs": ["rifampicin", "isoniazid"],
+      "contraindicated_drugs": [],
+      "required_tests": ["sputum_microscopy"]
+    },
+    "compliance_score": 1.0,
+    "recommendations": ["Required tests: sputum_microscopy"],
+    "alerts": [],
+    "llm_provider": "claude",
+    "status": "Excellent - Fully compliant with guidelines"
+  }
+]
